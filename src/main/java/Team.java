@@ -29,4 +29,8 @@ public class Team {
             System.out.println(player.name+ " " + player.nickname + " " +player.number + " " + player.points);
         }
     }
+
+    public ArrayList<Player> getPlayers() {
+        return this.players;
+    }
 }

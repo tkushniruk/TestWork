@@ -3,6 +3,7 @@ public class Player {
     String nickname;
     int number;
     int points;
+    int overallPoints;
 
     Player(String name, String nickname, int number, int points) {
         this.name = name;
@@ -14,4 +15,5 @@ public class Player {
     public void grantAdditionalPoints() {
         this.points += 10;
     }
+    public void setOverallPoints(int overallPoints) { this.overallPoints = overallPoints; }
 }
