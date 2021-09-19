@@ -1,9 +1,8 @@
 public class Player {
-    String name;
-    String nickname;
-    int number;
-    int points;
-    int overallPoints;
+    private String name;
+    private String nickname;
+    private int number;
+    private int points;
 
     Player(String name, String nickname, int number, int points) {
         this.name = name;
@@ -15,5 +14,20 @@ public class Player {
     public void grantAdditionalPoints() {
         this.points += 10;
     }
-    public void setOverallPoints(int overallPoints) { this.overallPoints = overallPoints; }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public int getPoints() {
+        return points;
+    }
 }

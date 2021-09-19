@@ -26,7 +26,7 @@ public class Team {
     public void showPlayersStats() {
         System.out.println(this.name);
         for(Player player : players) {
-            System.out.println(player.name+ " " + player.nickname + " " +player.number + " " + player.points);
+            System.out.println(player.getName()+ " " + player.getNickname() + " " +player.getNumber() + " " + player.getPoints());
         }
     }
 

@@ -1,13 +1,40 @@
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.NoSuchFileException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Utils {
-    public static void readBasketballGame(Game game) {
+
+    public static void readAllGames(ArrayList<Game> games) {
+        for(Game game : games) {
+            switch(game.getName()) {
+                case "Basketball":
+                    try {
+                        readBasketballGame(game);
+                    }catch(IOException ex) {
+                        System.err.println("Error reading file! All files should be broken!");
+                    }
+                    break;
+                case "Handball":
+                    try {
+                        readHandballGame(game);
+                    }catch(IOException ex) {
+                        System.err.println("Error reading file! All files should be broken!");
+                    }
+                    break;
+                default:
+                    System.out.println("UNKNOWN GAME");
+            }
+        }
+    }
+
+    public static void readBasketballGame(Game game) throws IOException {
         String fileName = "basket.csv";
         BasketballStats basketballStats = new BasketballStats();
         try (CSVReader reader = new CSVReader(new FileReader(fileName))) {
@@ -30,24 +57,25 @@ public class Utils {
                     pointsB += Integer.parseInt(elem[5]);
                 }
             }
-            game.teamA = teamA;
-            game.teamB = teamB;
+            game.setTeamA(teamA);
+            game.setTeamB(teamB);
             if(pointsA > pointsB) {
                 teamA.setAdditionalRatingPoints();
-                game.winner = teamA;
+                game.setWinner(teamA);
             }else {
                 teamB.setAdditionalRatingPoints();
-                game.winner = teamB;
+                game.setWinner(teamB);
             }
+            System.out.println("BASKETBALL STATS: \n");
             teamA.showPlayersStats();
             teamB.showPlayersStats();
         }catch(CsvException ex) {
             System.out.println(ex.getMessage());
-        }catch(IOException ex) {
-            System.out.println(ex.getMessage());
+        } catch (IOException e) {
+            throw new IOException();
         }
     }
-    public static void readHandballGame(Game game) {
+    public static void readHandballGame(Game game) throws IOException {
         String fileName = "handball.csv";
         HandballStats handballStats = new HandballStats();
         try (CSVReader reader = new CSVReader(new FileReader(fileName))) {
@@ -70,22 +98,24 @@ public class Utils {
                     pointsB += Integer.parseInt(elem[5]);
                 }
             }
-            game.teamA = teamA;
-            game.teamB = teamB;
+            game.setTeamA(teamA);
+            game.setTeamB(teamB);
             if(pointsA > pointsB) {
                 teamA.setAdditionalRatingPoints();
-                game.winner = teamA;
+                game.setWinner(teamA);
             }else {
                 teamB.setAdditionalRatingPoints();
-                game.winner = teamB;
+                game.setWinner(teamB);
             }
+            System.out.println("HANDBALL STATS: \n");
             teamA.showPlayersStats();
             teamB.showPlayersStats();
-            System.out.println(game.winner.getName());
+            System.out.println(game.getWinner().getName());
         }catch(CsvException ex) {
             System.out.println(ex.getMessage());
         }catch(IOException ex) {
             System.out.println(ex.getMessage());
+            throw new IOException();
         }
     }
 }
